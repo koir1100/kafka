@@ -44,6 +44,7 @@ def main():
     for _ in range(100):
         person = Person(id=str(uuid.uuid4()), name=faker.name(), title=faker.job().title())
         people.append(person)
+        print(person)
         producer.send(
             topic=topic_name,
             key=re.sub(r'\s+', '-', person.title.lower()).encode('utf-8'),

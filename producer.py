@@ -7,8 +7,10 @@ producer = KafkaProducer(
    value_serializer=lambda x: dumps(x).encode('utf-8')
 )
 
-for j in range(999):
+for j in range(51):
    print("Iteration", j)
    data = {'counter': j}
    producer.send('topic_test', value=data)
    sleep(0.5)
+
+producer.flush()

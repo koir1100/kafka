@@ -20,7 +20,10 @@ if __name__ == "__main__":
 
     # TRANSFORM
     words_df = lines_df.select(expr("explode(split(value,' ')) as word"))
-    counts_df = words_df.groupBy("word").count()
+    # counts_df = words_df.groupBy("word").count()
+
+    words_df.createOrReplaceTempView("words")
+    counts_df = spark.sql("""SELECT word, COUNT(word) AS count FROM words GROUP BY word ORDER BY count DESC""")
 
     # SINK
     word_count_query = counts_df.writeStream \

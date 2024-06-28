@@ -34,6 +34,9 @@ def main():
 
         topic_partition = TopicPartition(record.topic, record.partition)
         offset = OffsetAndMetadata(record.offset + 1, record.timestamp)
+
+        # 읽을 때마다 하나씩 commit을 하면 정합성 측면에서는 의미가 있으나 리소스가 필요
+        # (백그라운드 형태의) autocommit과 유사하게 batch 형태로 commit을 하여 읽은 상황 기록을 업데이트 수행
         consumer.commit({
             topic_partition: offset
         })

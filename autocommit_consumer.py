@@ -16,6 +16,8 @@ def main():
     bootstrap_servers = ["localhost:9092"]
     consumer_group_id = "fake_people_group"
 
+    # auto_offset_reset는 해당 topic에 무조건 맨 앞에 있는 메시지를 읽는 것이 아니라
+    # 앞서 읽은 기록이 있다면 그 기록 이후부터 읽어오게 됨
     consumer = KafkaConsumer(
         bootstrap_servers=bootstrap_servers,
         group_id=consumer_group_id,
